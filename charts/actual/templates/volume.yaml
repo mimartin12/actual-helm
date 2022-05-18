@@ -1,0 +1,16 @@
+{{- if .Values.persistance.enabled -}}
+{{- $fullName := include "actual.fullname" . -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $fullName }}-data
+  labels:
+    {{- include "actual.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.persistance.volume.accessMode }}
+  storageClassName: {{ .Values.persistance.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.persistance.volume.size }}
+{{- end }}
