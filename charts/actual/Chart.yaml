@@ -3,5 +3,5 @@ name: actual
 description: A helm chart for deploying [actual-server](https://github.com/actualbudget/actual-server).
 
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "latest"
