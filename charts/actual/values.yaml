@@ -1,14 +1,10 @@
-# Default values for actual.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: kippenhof/actual-server
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  # tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -36,21 +32,19 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-env:
-  - name: HOST
-    value: 127.0.0.1
+env: []
+  # - name: NAME
+    # value: VALUE
 
 service:
   type: LoadBalancer
   port: 5006
 
 ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: false
+  annotations: {}
   hosts:
-    - host: actual.192.168.1.107.nip.io
+    - host: chart.example.com
       paths: 
       - path: /
         pathType: Prefix
@@ -59,28 +53,24 @@ ingress:
             port:
               number: 5006
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  #  - secretName: 
+    #  hosts:
+      #  - chart.example.com
 
 persistance:
-  enabled: true
-  storageClassName: longhorn-static
+  enabled: false
+  storageClassName: local-path
   volume:
-    accessMode: ReadWriteMany
+    accessMode: ReadWriteOnce
     size: 20Gi
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+resources:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
 
 autoscaling:
   enabled: false
