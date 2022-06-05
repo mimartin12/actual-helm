@@ -4,4 +4,4 @@ description: A helm chart for deploying [actual-server](https://github.com/actua
 
 type: application
 version: 0.1.1
-appVersion: "latest"
+appVersion: "1.0.1"
